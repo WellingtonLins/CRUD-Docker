@@ -1,4 +1,4 @@
-package br.com.wl.util;
+package br.edu.ifpb.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

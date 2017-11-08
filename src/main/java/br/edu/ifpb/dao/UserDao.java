@@ -1,7 +1,7 @@
-package br.com.wl.dao;
+package br.edu.ifpb.dao;
 
-import br.com.wl.model.Pessoa;
-import br.com.wl.util.DbUtil;
+import br.edu.ifpb.model.Pessoa;
+import br.edu.ifpb.util.DbUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

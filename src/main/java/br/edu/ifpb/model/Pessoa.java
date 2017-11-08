@@ -1,7 +1,6 @@
-package br.com.wl.model;
+package br.edu.ifpb.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Pessoa implements Serializable {
 

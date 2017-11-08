@@ -1,7 +1,8 @@
-package br.com.wl.controller;
+package br.edu.ifpb.controller;
 
-import br.com.wl.dao.UserDao;
-import br.com.wl.model.Pessoa;
+
+import br.edu.ifpb.dao.UserDao;
+import br.edu.ifpb.model.Pessoa;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -13,15 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 public class UserController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static String INSERT_OR_EDIT = "/user.jsp";
-    private static String LIST_USER = "/listUser.jsp";
-    private UserDao dao;
+    private static final String INSERT_OR_EDIT = "/user.jsp";
+    private static final String LIST_USER = "/listUser.jsp";
+    private final UserDao dao;
 
     public UserController() {
         super();
         dao = new UserDao();
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = "";
         String action = request.getParameter("action");

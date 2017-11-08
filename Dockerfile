@@ -1,2 +1,2 @@
 FROM tomcat
-COPY target/SimpleSevletDB.war ${CATALINA_HOME}/webapps
+COPY target/app.war ${CATALINA_HOME}/webapps

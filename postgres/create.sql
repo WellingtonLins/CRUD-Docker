@@ -1,8 +1,6 @@
-CREATE TABLE  users(
-userid SERIAL PRIMARY KEY,
-firstname  varchar (50),
-lastname  varchar (50),
-dob  date,
-email varchar (50),
-primary key(userid)
+CREATE TABLE pessoa(
+  id  serial,
+  nome character varying(80) NOT NULL,
+  cpf character varying(14) NOT NULL,
+  PRIMARY KEY (id)
 );

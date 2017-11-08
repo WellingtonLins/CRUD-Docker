@@ -1,2 +1,5 @@
-INSERT INTO users(firstname,lastname,dob,email) VALUES ('Kiko','frederico','2011-11-10','kiko@gmail.com');
-INSERT INTO users(firstname,lastname,dob,email) VALUES ('Chaves','Legal','2000-10-10','chaves@gmail.com');
+INSERT INTO pessoa(nome, cpf) VALUES ('Kiko','123.132.121-31');
+INSERT INTO pessoa(nome, cpf) VALUES ('Chaves','123.132.121-31');
+INSERT INTO pessoa(nome, cpf) VALUES ('Chiquinha', '123.132.121-31');
+INSERT INTO pessoa(nome, cpf) VALUES ('Madruga', '123.132.121-31');
+INSERT INTO pessoa(nome, cpf) VALUES ('Florinda', '123.132.121-31');
