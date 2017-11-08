@@ -3,36 +3,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<link type="text/css"
-    href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-<title>Add new user</title>
-</head>
-<body>
-    <script>
-        $(function() {
-            $('input[name=dob]').datepicker();
-        });
-    </script>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <form method="POST" action='UserController' name="frmAddUser">
-        User ID : <input type="text" readonly="readonly" name="userid"
-            value="<c:out value="${user.userid}" />" /> <br /> 
-        First Name : <input
-            type="text" name="firstName"
-            value="<c:out value="${user.firstName}" />" /> <br /> 
-        Last Name : <input
-            type="text" name="lastName"
-            value="<c:out value="${user.lastName}" />" /> <br /> 
-        DOB : <input
-            type="text" name="dob"
-            value="<fmt:formatDate pattern="MM/dd/yyyy" value="${user.dob}" />" /> <br /> 
-        Email : <input type="text" name="email"
-            value="<c:out value="${user.email}" />" /> <br /> <input
-            type="submit" value="Submit" />
-    </form>
-</body>
+        <title>Add new user</title>
+        <link rel="stylesheet" href="css/style.css">
+       	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-responsive.css"/>
+    </head>
+    <body>
+        <div class="container espaco">
+            <div class="offset3 span6 offset3">
+                <form class="form-signin" role="form" method="POST" action='UserController' name="frmAddUser">
+                    <h2 class="form-signin-heading">Insira seus dados</h2>
+
+                    User ID : <input type="text"  class="form-control" readonly="readonly" name="id"
+                                     value="<c:out value="${user.id}" />" /> <br /> 
+                    Nome : <input
+                        type="text" name="nome"  class="form-control"
+                        value="<c:out value="${user.nome}" />" /> <br /> 
+                    CPF: <input
+                        type="text" name="CPF"  class="form-control"
+                        value="<c:out value="${user.cpf}" />" /> <br /> 
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+                </form>
+
+            </div>
+        </div>
+    </body>
 </html>

@@ -1,6 +1,6 @@
 package br.com.wl.dao;
 
-import br.com.wl.model.User;
+import br.com.wl.model.Pessoa;
 import br.com.wl.util.DbUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,15 +18,14 @@ public class UserDao {
         connection = DbUtil.getConnection();
     }
 
-    public void addUser(User user) {
+    public void addUser(Pessoa pessoa) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into users(firstname,lastname,dob,email) values (?, ?, ?, ? )");
+                    .prepareStatement("insert into pessoa(nome,cpf) values (?, ?)");
             // Parameters start with 1
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setDate(3, new java.sql.Date(user.getDob().getTime()));
-            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(1, pessoa.getNome());
+            preparedStatement.setString(2, pessoa.getCpf());
+
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -34,12 +33,12 @@ public class UserDao {
         }
     }
 
-    public void deleteUser(int userId) {
+    public void deleteUser(int id) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from users where userid=?");
+                    .prepareStatement("delete from pessoa where id=?");
             // Parameters start with 1
-            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -47,17 +46,16 @@ public class UserDao {
         }
     }
 
-    public void updateUser(User user) {
+    public void updateUser(Pessoa pessoa) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update users set firstname=?, lastname=?, dob=?, email=?"
-                            + "where userid=?");
+                    .prepareStatement("update pessoa set nome=?, cpf=?"
+                            + "where id=?");
             // Parameters start with 1
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setDate(3, new java.sql.Date(user.getDob().getTime()));
-            preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setInt(5, user.getUserid());
+            preparedStatement.setString(1, pessoa.getNome());
+            preparedStatement.setString(2, pessoa.getCpf());
+
+            preparedStatement.setInt(3, pessoa.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -65,46 +63,43 @@ public class UserDao {
         }
     }
 
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<User>();
+    public List<Pessoa> getAllUsers() {
+        List<Pessoa> lista = new ArrayList<Pessoa>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from users");
+            ResultSet rs = statement.executeQuery("select * from pessoa");
             while (rs.next()) {
-                User user = new User();
-                user.setUserid(rs.getInt("userid"));
-                user.setFirstName(rs.getString("firstname"));
-                user.setLastName(rs.getString("lastname"));
-                user.setDob(rs.getDate("dob"));
-                user.setEmail(rs.getString("email"));
-                users.add(user);
+                Pessoa pessoa = new Pessoa();
+                pessoa.setId(rs.getInt("id"));
+                pessoa.setNome(rs.getString("nome"));
+                pessoa.setCpf(rs.getString("CPF"));
+                lista.add(pessoa);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return users;
+        return lista;
     }
 
-    public User getUserById(int userId) {
-        User user = new User();
+    public Pessoa getUserById(int userId) {
+        Pessoa pessoa = new Pessoa();
         try {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement("select * from users where userid=?");
+                    prepareStatement("select * from pessoa where id=?");
             preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
-                user.setUserid(rs.getInt("userid"));
-                user.setFirstName(rs.getString("firstname"));
-                user.setLastName(rs.getString("lastname"));
-                user.setDob(rs.getDate("dob"));
-                user.setEmail(rs.getString("email"));
+                pessoa.setId(rs.getInt("id"));
+                pessoa.setNome(rs.getString("nome"));
+                pessoa.setCpf(rs.getString("CPF"));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return user;
+        return pessoa;
     }
 }
