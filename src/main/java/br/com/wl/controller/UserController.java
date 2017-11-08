@@ -3,9 +3,6 @@ package br.com.wl.controller;
 import br.com.wl.dao.UserDao;
 import br.com.wl.model.Pessoa;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
