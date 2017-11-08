@@ -15,21 +15,23 @@
     </properties>
     
     <dependencies>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.33</version>
-        </dependency>
+    
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1212</version>
+        </dependency>
         
     </dependencies>
 
     <build>
+        <finalName>SimpleSevletDB</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

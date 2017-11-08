@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class DbUtil {
@@ -16,22 +17,17 @@ public class DbUtil {
             return connection;
         else {
             try {
-            	Properties prop = new Properties();
-                InputStream inputStream = DbUtil.class.getClassLoader().getResourceAsStream("/db.properties");
-                prop.load(inputStream);
-                String driver = prop.getProperty("driver");
-                String url = prop.getProperty("url");
-                String user = prop.getProperty("user");
-                String password = prop.getProperty("password");
-                Class.forName(driver);
-                connection = DriverManager.getConnection(url, user, password);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            	
+             String url = "jdbc:postgresql://host-banco:5432/teste";  
+            String usuario = "postgres";  
+            String senha = "123";  
+  
+            Class.forName("org.postgresql.Driver");  
+  
+            connection = DriverManager.getConnection(url, usuario, senha);  
+  
+          
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return connection;
