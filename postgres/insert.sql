@@ -1,2 +1,2 @@
-INSERT INTO pessoa(firstname,lastname,dob,email) VALUES ('Kiko','frederico','2011-11-10','kiko@gmail.com');
-INSERT INTO pessoa(firstname,lastname,dob,email) VALUES ('Chaves','Legal','2000-10-10','chaves@gmail.com');
+INSERT INTO users(firstname,lastname,dob,email) VALUES ('Kiko','frederico','2011-11-10','kiko@gmail.com');
+INSERT INTO users(firstname,lastname,dob,email) VALUES ('Chaves','Legal','2000-10-10','chaves@gmail.com');

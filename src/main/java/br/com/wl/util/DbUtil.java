@@ -10,23 +10,23 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class DbUtil {
-	private static Connection connection = null;
+
+    private static Connection connection = null;
 
     public static Connection getConnection() {
-        if (connection != null)
+        if (connection != null) {
             return connection;
-        else {
+        } else {
             try {
-            	
-             String url = "jdbc:postgresql://host-banco:5432/teste";  
-            String usuario = "postgres";  
-            String senha = "123";  
-  
-            Class.forName("org.postgresql.Driver");  
-  
-            connection = DriverManager.getConnection(url, usuario, senha);  
-  
-          
+
+                String url = "jdbc:postgresql://host-banco:5432/pos-cliente";
+                String usuario = "postgres";
+                String senha = "12345";
+
+                Class.forName("org.postgresql.Driver");
+
+                connection = DriverManager.getConnection(url, usuario, senha);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
