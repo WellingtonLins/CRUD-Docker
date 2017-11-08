@@ -13,9 +13,13 @@ public class DbUtil {
         } else {
             try {
 
+                
                 String url = "jdbc:postgresql://host-banco:5432/pos-cliente";
                 String usuario = "postgres";
                 String senha = "12345";
+//                String url = "jdbc:postgresql://localhost:5433/pos-cliente";
+//                String usuario = "postgres";
+//                String senha = "123";
 
                 Class.forName("org.postgresql.Driver");
 

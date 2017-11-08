@@ -72,7 +72,7 @@ public class UserDao {
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("id"));
                 pessoa.setNome(rs.getString("nome"));
-                pessoa.setCpf(rs.getString("CPF"));
+                pessoa.setCpf(rs.getString("cpf"));
                 lista.add(pessoa);
             }
         } catch (SQLException e) {
