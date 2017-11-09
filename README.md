@@ -45,11 +45,11 @@ usar o [Netbeans](https://netbeans.org/downloads/) ou o [Eclipse](http://www.ecl
 
 ## Criando o arquivo `Dockerfile` do banco de dados
 
-Dentro do seu projeto crie uma diretorio com o nome `postgres`, e dentro crie um
+Dentro do seu projeto crie uma diretório com o nome `postgres`, e dentro crie um
 arquivo nomeado `Dockerfile`, juntamente com mais dois arquivos create.sql e insert.sql,falaremos deles
-do seu conteudo logo mais.   
+do seu conteúdo logo mais.   
    
-O arquivo Dockerfile teve ter o seguinte conteudo:     
+O arquivo Dockerfile teve ter o seguinte conteúdo:     
 
 FROM postgres   
 ENV POSTGRES_USER postgres   
@@ -61,13 +61,13 @@ COPY insert.sql /docker-entrypoint-initdb.d/
 Como percebemos no arquivo acima, estamos configurando o postgres   
 indicando o user ,o passaword e o nome do banco que sera criado para receber os dados   
 da aplicação.   
-Nas ultimas duas linha estamos informando ao docker que ele deve ler o conteudo   
-dos dois arquivos `create.sql` que vai criar a tabela e `insert.sql` que vai inserir   
-dados no nossso banco pos-cliente.   
+Nas últimas duas linha estamos informando ao docker que ,após ele criar o banco de dados    
+ele deve ler o conteúdo dos dois arquivos `create.sql` que vai criar a tabela e `insert.sql`    
+que vai inserir no nossso banco pos-cliente.   
 
 Sensacional não?   
 
-## Conteudo do arquivo create.sql
+## Conteúdo do arquivo create.sql
 
 CREATE TABLE pessoa(    
   id  serial,   
@@ -77,7 +77,7 @@ CREATE TABLE pessoa(
 ); 
 
 
-## Conteudo do arquivo insert.sql 
+## Conteúdo do arquivo insert.sql 
 
 INSERT INTO pessoa(nome, cpf) VALUES ('Kiko','123.132.121-31');    
 INSERT INTO pessoa(nome, cpf) VALUES ('Chaves','123.132.121-31');    
@@ -88,10 +88,10 @@ INSERT INTO pessoa(nome, cpf) VALUES ('Florinda', '123.132.121-31');
 
 ## Criar uma imagem
 
-`docker build -t ricardojob/banco ./postgres`    
+`docker build -t elefante/banco ./postgres`    
 *`-t`: qual a tag que vamos atribuir a essa imagem*  
 *`./postgres`: caminho  para o arquivo Dockerfile do postgres que esta dentro da pasta postgres*  
-*`ricardojob/banco`: nome da imagem  que atribuimos   
+*`elefante/banco`: nome da imagem  que atribuimos   
 Depois que você executar o comando acima , caso você não tenha a imagem    
 do postgres, o docker vai providenciar  para você automaticamente, claro    
 isso acontece porque descrevemos isso no Dockerfile.
@@ -107,19 +107,15 @@ ou
 ## Executar o container
 
 
-`docker run -p 5433:5432 -d --name banco ricardojob/banco`  
+`docker run -p 5433:5432 -d --name banco elefante`  
 *`-p`: o bind entre a porta do host local com a porta do container*  
 *`-d`: o container seja executar em background* não obstruindo  o terminal  
 *`--name`: o nome do container* 
 *`banco` : nome da container 
   
-Agora va ate o browser a abra o seu projeto: [http://localhost:8081/app](http://localhost:8081/app/ )   
 
-Acima nós configuramos a porta do tomcat para 8081 lembra?   
-     
-No meu caso como ainda estou usando o Docker Toolbox no windows abro a aplicação em [http://192.168.99.100:8081/app/](http://192.168.99.100:8081/app/ )
+Acima nós configuramos a porta do postgres para 5433    
 
-  
 
 
 
@@ -128,17 +124,32 @@ No meu caso como ainda estou usando o Docker Toolbox no windows abro a aplicaç�
 
 ```
 FROM tomcat
-COPY target/app.war ${CATALINA_HOME}/webapps  
+COPY target/Aplicacao.war ${CATALINA_HOME}/webapps  
 ```   
 `FROM` :  diz qual a imagem que precisamos   
 `COPY` :  diz o caminho de onde copiar os arquivos .war para a implantação   
 `${CATALINA_HOME}/webapps` :  lugar  onde vamos armazenar os gloriosos arquivos   
 
-Este arquivo `Dockerfile`, deve obrigatoriamente estar dentro do diretorio raiz do seu projeto.
+Este arquivo `Dockerfile`, deve obrigatoriamente estar dentro do diretório raiz do seu projeto.
+
+
+Vale ressaltar que o nome `Aplicacao` foi o finalName que eu demos para a aplicação       
+dentro do pom.xml.  
+É por esse nome que vamos chamar o sistema no browser.   
+
+```
+<build>    
+        <finalName>Aplicacao</finalName>    
+</build>   
+```
+
+E claro dentro da pasta `WEB-INF` temos que ter uma outro diretório chamado `lib`   
+que deve conter as bibliotecas `jstl.jar` e `standart.jar`, camos contrario teremos   
+problemas ao carreagar o nosso sistema no browser.
 
 ## Criar uma imagem
 
-`docker build -t dockerlegal .`    
+`docker build -t minhaapp .`    
 *`-t`: qual a tag que vamos atribuir a essa imagem*  
 *`.`: caminho relativo (ou absoluto) para o arquivo Dockerfile*  
 
@@ -148,7 +159,7 @@ isso acontece porque descrevemos isso  no Dockerfile do projeto em questão.
         
    
 FROM  **tomcat**   
-COPY target/app.war ${CATALINA_HOME}/webapps   
+COPY target/Aplicacao.war ${CATALINA_HOME}/webapps   
     
 ## Listar as imagens
 
@@ -157,17 +168,17 @@ ou
  `docker images`
 
 ## Executar o container
-
-`docker run -p 8081:8080 -d --name application dockerlegal`  
+`docker run -p 8082:8080 -d --name app --link banco:host-banco minhaapp`
 *`-p`: o bind entre a porta do host local com a porta do container*  
 *`-d`: o container seja executar em background* não obstruindo  o terminal  
 *`--name`: o nome do container*  
+*`--link`: para o docker vincular o banco do conteiner ao host-banco que referenciado no nosso projeto java no arquivo DbUtil.java*  
   
-Agora va ate o browser a abra o seu projeto: [http://localhost:8081/app](http://localhost:8081/app/ )   
+Agora va até o browser a abra o seu projeto: [http://localhost:8082/Aplicacao](http://localhost:8081/Aplicacao.war/ )   
 
-Acima nós configuramos a porta do tomcat para 8081 lembra?   
+Acima nós configuramos a porta do tomcat para 8082 lembra?   
      
-No meu caso como ainda estou usando o Docker Toolbox no windows abro a aplicação em [http://192.168.99.100:8081/app/](http://192.168.99.100:8081/app/ )
+No meu caso como ainda estou usando o Docker Toolbox no windows abro a aplicação em [http://192.168.99.100:8082/Aplicacao.war/](http://192.168.99.100:8082/Aplicacao.war/ )
 
   
 ## Implantação usando  arquivo .sh
@@ -176,11 +187,11 @@ Para agilizar o processo de desenvolvimento vamos criar dois arquivos .sh:
  
 **run.sh**   
 
-O arquivo **run.sh** deve conter o seguinte conteudo:
+O arquivo **run.sh** deve conter o seguinte conteúdo:
 
 -------------------------------------------------------------    
-docker build -t ricardojob/banco ./postgres    
-docker run -p 5433:5432 -d --name banco ricardojob/banco    
+docker build -t elefante/banco ./postgres    
+docker run -p 5433:5432 -d --name banco elefante/banco    
 
 mvn clean package    
 docker build -t ricardojob/pos-aula .    
@@ -189,7 +200,7 @@ docker run -p 8082:8080 -d --name app --link banco:host-banco ricardojob/pos-aul
 -------------------------------------------------------------    
 **nonrun.sh**  
 
-O arquivo **nonrun.sh** deve conter o seguinte conteudo:    
+O arquivo **nonrun.sh** deve conter o seguinte conteúdo:    
 -------------------------------------------------------------    
 docker stop app    
 docker kill app    
@@ -199,15 +210,16 @@ docker rmi -f ricardojob/pos-aula
 docker stop banco    
 docker kill banco    
 docker rm banco    
-docker rmi -f ricardojob/banco    
+docker rmi -f elefante/banco    
 
 mvn clean    
 -------------------------------------------------------------   
 
 
-Assim uma vez que você ja tenha as imagens e os containers criados você
-não precsia digitar todas as vezes os comandos de criar a imagem
-e o container apos cada atualização de seu projeto.   
+Assim uma vez que você já tenha as imagens e os containers criados você   
+não precsia digitar todas as vezes os comandos de criar a imagem do banco de dados,      
+criar o conteiner desse banco, e depois criar a imagem da aplicação web criar o   
+o container apos cada atualização de seu projeto.   
 Simplesmente abra digite no docker: 
   
 ### Para iniciar:  
@@ -215,7 +227,8 @@ Simplesmente abra digite no docker:
 **sh run.sh**     
 
  Vai fazer tudo de uma só vez :    
-
+* O docker vai criar a imagem do banco   
+* O dockar vai criar o container desse banco e iniciar o mesmo    
 * O maven vai criar o arquivo .war do projeto   
 * Vai criar a imagem da aplicação   
 * Por ultimo criar e iniciar o container da aplicação  
@@ -225,11 +238,20 @@ Simplesmente abra digite no docker:
 **sh nonrun.sh**   
 
   Vai fazer tudo de uma só vez :  
+* O docker vai parar o container da Aplicacao    
+* O docker vai matar o container    
+* Remover o container da aplicação
+* Vai remover a imagem da aplicação do Docker  
+
+* O docker vai parar o container do banco elefante    
+* O docker vai matar o container   
+* Remover o container do banco
+* Remover a imagem do banco
  
 * O maven vai limpar o projeto   
-* Parar o container da aplicação   
-* Remover a aplicação
-* Por ultimo vai remover a imagem da aplicação do Docker   
+
+
+![alt text](img/sue.png "Java") 
 
 ## Listar os containers
 
@@ -252,6 +274,7 @@ Simplesmente abra digite no docker:
 ## Construido com 
 
 * [Java](http://www.dropwizard.io/1.0.2/docs/) - Lingugem de programação
+* [Postgres](https://www.postgresql.org) - Banco de dados 
 * [Maven](https://maven.apache.org/) - Gerenciador de dependencias
 * [Tomcat](https://tomcat.apache.org/) - Servidor Web usado para a implantação do projeto
 * [Docker](https://www.docker.com) - Gerenciador de containers onde podemos usar o container do Tomcat... 
@@ -276,6 +299,3 @@ Nós usamos o [Git](https://git-scm.com/) .
 wellingtonlins2013@gmail.com
 
 #### Tell me your problems and doubts...
-
-
-![alt text](img/navio-c.jpg "Navio com Containers")
