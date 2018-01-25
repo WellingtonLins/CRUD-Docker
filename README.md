@@ -1,9 +1,9 @@
 # CRUD-Docker
    
  A aplicação desenvolvida é um de crud javaweb com tomcat e o postgres.   
- Usamos como dominio apenas uma entidade pessoa;    
- É uma aplicação simples apenas para o uso didático,sendo assim não foram aborados   
- conceitos de segurança e validação de dados por exmplo.   
+ Usamos como dominio apenas uma entidade pessoa.   
+ É uma simples aplicação para o uso didático,sendo assim não foram abordados   
+ conceitos de segurança e validação de dados por exemplo.   
  Focamos apenas em criar um container para aplicação java e um container para o     
  banco de dados da aplicação junto ao docker.    
 
@@ -38,7 +38,7 @@ apenas um Editor de texto como o [Sublime](https://www.sublimetext.com/3) ou [No
 
 
 
-Se você gosta mais do estilo de deixar a IDE ajudar voce a completar o código pode
+Se você gosta mais do estilo de deixar a IDE ajudar você a completar o código pode
 usar o [Netbeans](https://netbeans.org/downloads/) ou o [Eclipse](http://www.eclipse.org/downloads/).   
 ![alt text](img/eclipse.png "Ecplise") 
 ![alt text](img/netbeans.png "Netbeans") 
@@ -47,7 +47,7 @@ usar o [Netbeans](https://netbeans.org/downloads/) ou o [Eclipse](http://www.ecl
 
 Dentro do seu projeto crie uma diretório com o nome `postgres`, e dentro crie um
 arquivo nomeado `Dockerfile`, juntamente com mais dois arquivos create.sql e insert.sql,falaremos deles
-do seu conteúdo logo mais.   
+e do seu conteúdo logo mais.   
    
 O arquivo Dockerfile teve ter o seguinte conteúdo:     
 
@@ -59,9 +59,9 @@ COPY create.sql /docker-entrypoint-initdb.d/
 COPY insert.sql /docker-entrypoint-initdb.d/   
 
 Como percebemos no arquivo acima, estamos configurando o postgres   
-indicando o user ,o passaword e o nome do banco que sera criado para receber os dados   
+indicando o user ,o password e o nome do banco que será criado para receber os dados   
 da aplicação.   
-Nas últimas duas linha estamos informando ao docker que ,após ele criar o banco de dados    
+Nas últimas duas linhas estamos informando ao docker, que após ele criar o banco de dados    
 ele deve ler o conteúdo dos dois arquivos `create.sql` que vai criar a tabela e `insert.sql`    
 que vai inserir no nossso banco pos-cliente.   
 
@@ -90,7 +90,7 @@ INSERT INTO pessoa(nome, cpf) VALUES ('Florinda', '123.132.121-31');
 
 `docker build -t elefante/banco ./postgres`    
 *`-t`: qual a tag que vamos atribuir a essa imagem*  
-*`./postgres`: caminho  para o arquivo Dockerfile do postgres que esta dentro da pasta postgres*  
+*`./postgres`: caminho  para o arquivo Dockerfile do postgres que está dentro da pasta postgres*  
 *`elefante/banco`: nome da imagem  que atribuimos   
 Depois que você executar o comando acima , caso você não tenha a imagem    
 do postgres, o docker vai providenciar  para você automaticamente, claro    
@@ -109,7 +109,7 @@ ou
 
 `docker run -p 5433:5432 -d --name banco elefante`  
 *`-p`: o bind entre a porta do host local com a porta do container*  
-*`-d`: o container seja executar em background* não obstruindo  o terminal  
+*`-d`: o container será executado em background* não obstruindo  o terminal  
 *`--name`: o nome do container* 
 *`banco` : nome da container 
   
@@ -144,7 +144,7 @@ dentro do pom.xml.
 ```
 
 E claro dentro da pasta `WEB-INF` temos que ter uma outro diretório chamado `lib`   
-que deve conter as bibliotecas `jstl.jar` e `standart.jar`, camos contrario teremos   
+que deve conter as bibliotecas `jstl.jar` e `standart.jar`, caso contrario teremos   
 problemas ao carreagar o nosso sistema no browser.
 
 ## Criar uma imagem
@@ -154,7 +154,7 @@ problemas ao carreagar o nosso sistema no browser.
 *`.`: caminho relativo (ou absoluto) para o arquivo Dockerfile*  
 
 Depois que você executar o comando acima , caso você não tenha a imagem    
-do tomcat, o docker vai providenciar  para você automaticamente, claro    
+do tomcat, o docker vai providenciar  para você automaticamente, óbvio,   
 isso acontece porque descrevemos isso  no Dockerfile do projeto em questão.
         
    
@@ -170,11 +170,11 @@ ou
 ## Executar o container
 `docker run -p 8082:8080 -d --name app --link banco:host-banco minhaapp`
 *`-p`: o bind entre a porta do host local com a porta do container*  
-*`-d`: o container seja executar em background* não obstruindo  o terminal  
+*`-d`: o container será executado em background* não obstruindo  o terminal  
 *`--name`: o nome do container*  
 *`--link`: para o docker vincular o banco do conteiner ao host-banco que referenciado no nosso projeto java no arquivo DbUtil.java*  
   
-Agora va até o browser a abra o seu projeto: [http://localhost:8082/Aplicacao](http://localhost:8081/Aplicacao.war/ )   
+Agora vá até o browser a abra o seu projeto: [http://localhost:8082/Aplicacao](http://localhost:8081/Aplicacao.war/ )   
 
 Acima nós configuramos a porta do tomcat para 8082 lembra?   
      
@@ -216,9 +216,9 @@ mvn clean
 -------------------------------------------------------------   
 
 
-Assim uma vez que você já tenha as imagens e os containers criados você   
-não precsia digitar todas as vezes os comandos de criar a imagem do banco de dados,      
-criar o conteiner desse banco, e depois criar a imagem da aplicação web criar o   
+Assim uma vez que você já tenha as imagens e os containers criados,  
+não é mais necessário digitar todas as vezes os comandos de criar a imagem do banco de dados,      
+criar o container desse banco, e depois criar a imagem da aplicação web, criar o   
 o container apos cada atualização de seu projeto.   
 Simplesmente abra digite no docker: 
   
@@ -231,7 +231,7 @@ Simplesmente abra digite no docker:
 * O dockar vai criar o container desse banco e iniciar o mesmo    
 * O maven vai criar o arquivo .war do projeto   
 * Vai criar a imagem da aplicação   
-* Por ultimo criar e iniciar o container da aplicação  
+* Por último criar e iniciar o container da aplicação  
 
 ### Para encerrar digite:  
 
