@@ -1,7 +1,7 @@
 # CRUD-Docker
    
  A aplicação desenvolvida é um de crud javaweb com tomcat e o postgres.   
- Usamos como dominio apenas uma entidade pessoa.   
+ Usamos como domínio apenas uma entidade pessoa.   
  É uma simples aplicação para o uso didático,sendo assim não foram abordados   
  conceitos de segurança e validação de dados por exemplo.   
  Focamos apenas em criar um container para aplicação java e um container para o     
@@ -94,7 +94,7 @@ INSERT INTO pessoa(nome, cpf) VALUES ('Florinda', '123.132.121-31');
 *`elefante/banco`: nome da imagem  que atribuimos   
 Depois que você executar o comando acima , caso você não tenha a imagem    
 do postgres, o docker vai providenciar  para você automaticamente, claro    
-isso acontece porque descrevemos isso no Dockerfile.
+isso acontece porque descrevemos assim no Dockerfile.
         
  
     
@@ -107,7 +107,7 @@ ou
 ## Executar o container
 
 
-`docker run -p 5433:5432 -d --name banco elefante`  
+`docker run -p 5433:5432 -d --name elefante/banco`  
 *`-p`: o bind entre a porta do host local com a porta do container*  
 *`-d`: o container será executado em background* não obstruindo  o terminal  
 *`--name`: o nome do container* 
@@ -155,7 +155,7 @@ problemas ao carreagar o nosso sistema no browser.
 
 Depois que você executar o comando acima , caso você não tenha a imagem    
 do tomcat, o docker vai providenciar  para você automaticamente, óbvio,   
-isso acontece porque descrevemos isso  no Dockerfile do projeto em questão.
+isso acontece porque descrevemos essa ação no Dockerfile do projeto em questão.
         
    
 FROM  **tomcat**   
