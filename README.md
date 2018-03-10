@@ -169,11 +169,11 @@ ou
  `docker images`
 
 ## Executar o container
-`docker run -p 8080:8080 -d --name app --link banco:host-banco imagem-da-aplicacao-java`
-*`-p`: o bind entre a porta do host local com a porta do container*  
-*`-d`: o container será executado em background* não obstruindo  o terminal  
-*`--name`: o nome do container*  
-*`--link`: para o docker vincular o banco do conteiner ao host-banco que referenciado no nosso projeto java no arquivo DbUtil.java*  
+`docker run -p 8080:8080 -d --name app --link banco:host-banco imagem-da-aplicacao-java`    
+`-p`: o bind entre a porta do host local com a porta do container   
+`-d`: o container será executado em background* não obstruindo  o terminal  
+`--name`: o nome do container   
+`--link`: para o docker vincular o banco do conteiner ao host-banco que referenciado no nosso projeto java no arquivo DbUtil.java     
   
 Agora vá até o browser a abra o seu projeto: [http://localhost:8080/Aplicacao](http://localhost:8080/Aplicacao.war/ )   
 
