@@ -107,7 +107,7 @@ ou
 ## Executar o container
 
 
-`docker run -p 5433:5432 -d --name banco elefante/banco`  
+`docker run -p 5433:5432 -d --name banco elefante/banco`    
 `-p`: o bind entre a porta do host local com a porta do container
 `-d`: o container será executado em background não obstruindo  o terminal 
 `--name`: o nome do container 
@@ -150,7 +150,7 @@ problemas ao carreagar o nosso sistema no browser.
 
 ## Criar uma imagem
 
-`docker build -t minhaapp .`    
+`docker build -t imagem-da-aplicacao-java .`    
 *`-t`: qual a tag que vamos atribuir a essa imagem*  
 *`.`: caminho relativo (ou absoluto) para o arquivo Dockerfile*  
 
@@ -169,17 +169,17 @@ ou
  `docker images`
 
 ## Executar o container
-`docker run -p 8082:8080 -d --name app --link banco:host-banco minhaapp`
+`docker run -p 8080:8080 -d --name app --link banco:host-banco imagem-da-aplicacao-java`
 *`-p`: o bind entre a porta do host local com a porta do container*  
 *`-d`: o container será executado em background* não obstruindo  o terminal  
 *`--name`: o nome do container*  
 *`--link`: para o docker vincular o banco do conteiner ao host-banco que referenciado no nosso projeto java no arquivo DbUtil.java*  
   
-Agora vá até o browser a abra o seu projeto: [http://localhost:8082/Aplicacao](http://localhost:8081/Aplicacao.war/ )   
+Agora vá até o browser a abra o seu projeto: [http://localhost:8080/Aplicacao](http://localhost:8080/Aplicacao.war/ )   
 
 Acima nós configuramos a porta do tomcat para 8082 lembra?   
      
-No meu caso como ainda estou usando o Docker Toolbox no windows abro a aplicação em [http://192.168.99.100:8082/Aplicacao.war/](http://192.168.99.100:8082/Aplicacao.war/ )
+No meu caso como ainda estou usando o Docker Toolbox no windows abro a aplicação em [http://192.168.99.100:8080/Aplicacao.war/](http://192.168.99.100:8080/Aplicacao.war/ )
 
   
 ## Implantação usando  arquivo .sh
@@ -195,8 +195,8 @@ docker build -t elefante/banco ./postgres
 docker run -p 5433:5432 -d --name banco elefante/banco    
 
 mvn clean package    
-docker build -t ricardojob/pos-aula .    
-docker run -p 8082:8080 -d --name app --link banco:host-banco ricardojob/pos-aula    
+docker build -t imagem-da-aplicacao-java .    
+docker run -p 8080:8080 -d --name app --link banco:host-banco imagem-da-aplicacao-java    
 
 -------------------------------------------------------------    
 **nonrun.sh**  
@@ -206,7 +206,7 @@ O arquivo **nonrun.sh** deve conter o seguinte conteúdo:
 docker stop app    
 docker kill app    
 docker rm app    
-docker rmi -f ricardojob/pos-aula    
+docker rmi -f imagem-da-aplicacao-java   
 
 docker stop banco    
 docker kill banco    
@@ -293,7 +293,7 @@ Nós usamos o [Git](https://git-scm.com/) .
 ## Agradecimentos
 
 * Ao professor Ricardo Job 
-* A colega Michelle Oliveira
+* Aos colegas do ifpb
 
 ## Here I can listen you call my name: 
 
