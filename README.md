@@ -107,14 +107,15 @@ ou
 ## Executar o container
 
 
-`docker run -p 5433:5432 -d --name elefante/banco`  
-*`-p`: o bind entre a porta do host local com a porta do container*  
-*`-d`: o container será executado em background* não obstruindo  o terminal  
-*`--name`: o nome do container* 
-*`banco` : nome da container 
+`docker run -p 5433:5432 -d --name banco elefante/banco`  
+`-p`: o bind entre a porta do host local com a porta do container
+`-d`: o container será executado em background não obstruindo  o terminal 
+`--name`: o nome do container 
+`banco` : nome da container 
   
 
-Acima nós configuramos a porta do postgres para 5433    
+Acima nós configuramos a porta do postgres para 5433 , que nesse caso foi a porta    
+que eu configurei na minha aplicação java, a porta apos `:` é a porta do container que nós criamos.   
 
 
 
